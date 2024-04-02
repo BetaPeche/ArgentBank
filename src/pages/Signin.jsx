@@ -32,7 +32,7 @@ const Signin = () => {
                 console.log("Erreur")
             }
         } catch (err) {
-            // console.error(err.message)
+            console.error(err.message)
         }
     }
 
