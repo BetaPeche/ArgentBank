@@ -3,7 +3,7 @@ const FeatureItem = ({ data }) => {
         <div className="feature-item">
             <img
                 src={data.image}
-                alt={data.attribue}
+                alt={data.attribute}
                 className="feature-icon"
             />
             <h3 className="feature-item-title">{data.title}</h3>
