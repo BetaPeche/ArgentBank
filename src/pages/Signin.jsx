@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { fetchUserProfile, logIn } from "../features/userSlice"
 import { useDispatch } from "react-redux"
@@ -9,6 +9,15 @@ const Signin = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [isChecked, setIsChecked] = useState(false)
+
+    useEffect(() => {
+        const localUser = JSON.parse(localStorage.getItem("user"))
+        if (localUser) {
+            setEmail(localUser.localEmail)
+            setPassword(localUser.localPassword)
+            setIsChecked(true)
+        }
+    }, [])
 
     const checkHandler = () => {
         setIsChecked(!isChecked)
@@ -47,6 +56,12 @@ const Signin = () => {
                 )
                 const res2 = await response2.json()
                 dispatch(fetchUserProfile(res2.body))
+                const userInfo = { localEmail: email, localPassword: password }
+                if (isChecked) {
+                    localStorage.setItem("user", JSON.stringify(userInfo))
+                } else {
+                    localStorage.clear()
+                }
                 navigate("/profile")
             }
             if (res.status === 400) {
