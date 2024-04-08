@@ -8,6 +8,11 @@ const Signin = () => {
     const navigate = useNavigate()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [isChecked, setIsChecked] = useState(false)
+
+    const checkHandler = () => {
+        setIsChecked(!isChecked)
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -77,7 +82,12 @@ const Signin = () => {
                         />
                     </div>
                     <div className="input-remember">
-                        <input type="checkbox" id="remember-me" />
+                        <input
+                            type="checkbox"
+                            id="remember-me"
+                            checked={isChecked}
+                            onChange={checkHandler}
+                        />
                         <label htmlFor="remember-me">Remember me</label>
                     </div>
                     <button className="sign-in-button" type="submit">
