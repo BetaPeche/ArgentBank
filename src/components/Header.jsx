@@ -18,7 +18,7 @@ const Header = () => {
             <Link to="/" className="main-nav-logo">
                 <img
                     className="main-nav-logo-image"
-                    src={`${process.env.PUBLIC_URL}/img/argentBankLogo.png`}
+                    src={`${process.env.PUBLIC_URL}/img/argentBankLogo.webp`}
                     alt="Argent Bank Logo"
                 />
                 <h1 className="sr-only">Argent Bank</h1>
