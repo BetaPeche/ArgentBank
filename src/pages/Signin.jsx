@@ -74,7 +74,7 @@ const Signin = () => {
                     setError("Mauvaise combinaison email/mot de passe")
                 }
             } catch (err) {
-                console.error(err.message)
+                setError(err.message)
             }
         }
     }
