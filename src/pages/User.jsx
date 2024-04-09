@@ -54,7 +54,7 @@ const User = () => {
                 ) : (
                     <>
                         <h1>Edit user info</h1>
-                        <div>
+                        <div className="user-edit-info">
                             <div>
                                 <label htmlFor="username">User name: </label>
                                 <input

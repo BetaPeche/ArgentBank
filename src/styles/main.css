@@ -276,6 +276,35 @@ body {
     margin-bottom: 2rem;
 }
 
+.header button {
+    margin: 0px 5px 0px 5px;
+}
+
+.user-edit-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.user-edit-info input {
+    background-color: #fff;
+    width: 150px;
+    height: 25px;
+    border-radius: 5px;
+    border: solid 1px #C4C5C5;
+}
+
+.user-edit-info input:disabled {
+    background-color: #ccc;
+}
+
+.user-edit-info label {
+    display: inline-block;
+    text-align: right;
+    margin-right: 8px;
+}
+
 .transaction-button {
     display: block;
     width: 100%;
