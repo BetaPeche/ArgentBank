@@ -192,6 +192,12 @@ body {
     margin-left: 0.25rem;
 }
 
+.form-error {
+    color: rgb(230, 0, 0);
+    display: flex;
+    margin-top: 10px;
+}
+
 .input-wrapper {
     display: flex;
     flex-direction: column;
