@@ -26,50 +26,56 @@ const Signin = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-
-        try {
-            const response = await fetch(
-                "http://localhost:3001/api/v1/user/login",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        password: password,
-                    }),
-                }
-            )
-            const res = await response.json()
-
-            if (res.status === 200) {
-                dispatch(logIn(res.body.token))
-                const response2 = await fetch(
-                    "http://localhost:3001/api/v1/user/profile",
+        if (!email || !password) {
+            setError("Veuillez remplir tous les champs")
+        } else {
+            try {
+                const response = await fetch(
+                    "http://localhost:3001/api/v1/user/login",
                     {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
-                            Authorization: `Bearer ${res.body.token}`,
                         },
+                        body: JSON.stringify({
+                            email: email,
+                            password: password,
+                        }),
                     }
                 )
-                const res2 = await response2.json()
-                dispatch(fetchUserProfile(res2.body))
-                const userInfo = { localEmail: email, localPassword: password }
-                if (isChecked) {
-                    localStorage.setItem("user", JSON.stringify(userInfo))
-                } else {
-                    localStorage.clear()
+                const res = await response.json()
+
+                if (res.status === 200) {
+                    dispatch(logIn(res.body.token))
+                    const response2 = await fetch(
+                        "http://localhost:3001/api/v1/user/profile",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${res.body.token}`,
+                            },
+                        }
+                    )
+                    const res2 = await response2.json()
+                    dispatch(fetchUserProfile(res2.body))
+                    const userInfo = {
+                        localEmail: email,
+                        localPassword: password,
+                    }
+                    if (isChecked) {
+                        localStorage.setItem("user", JSON.stringify(userInfo))
+                    } else {
+                        localStorage.clear()
+                    }
+                    navigate("/profile")
                 }
-                navigate("/profile")
+                if (res.status === 400) {
+                    setError("Mauvaise combinaison email/mot de passe")
+                }
+            } catch (err) {
+                console.error(err.message)
             }
-            if (res.status === 400) {
-                setError("Mauvaise combinaison email/mot de passe")
-            }
-        } catch (err) {
-            console.error(err.message)
         }
     }
 
