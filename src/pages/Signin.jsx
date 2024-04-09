@@ -9,6 +9,7 @@ const Signin = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [isChecked, setIsChecked] = useState(false)
+    const [error, setError] = useState("")
 
     useEffect(() => {
         const localUser = JSON.parse(localStorage.getItem("user"))
@@ -65,7 +66,7 @@ const Signin = () => {
                 navigate("/profile")
             }
             if (res.status === 400) {
-                console.log("Erreur")
+                setError("Mauvaise combinaison email/mot de passe")
             }
         } catch (err) {
             console.error(err.message)
@@ -105,6 +106,7 @@ const Signin = () => {
                         />
                         <label htmlFor="remember-me">Remember me</label>
                     </div>
+                    {error ? <span className="form-error">{error}</span> : ""}
                     <button className="sign-in-button" type="submit">
                         Sign In
                     </button>
