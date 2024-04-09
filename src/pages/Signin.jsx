@@ -112,7 +112,7 @@ const Signin = () => {
                         />
                         <label htmlFor="remember-me">Remember me</label>
                     </div>
-                    {error ? <span className="form-error">{error}</span> : ""}
+                    {error && <span className="form-error">{error}</span>}
                     <button className="sign-in-button" type="submit">
                         Sign In
                     </button>
