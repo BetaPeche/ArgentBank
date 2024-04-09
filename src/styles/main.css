@@ -278,6 +278,7 @@ body {
 
 .header button {
     margin: 0px 5px 0px 5px;
+    min-width: 100px;
 }
 
 .user-edit-info {
@@ -289,10 +290,11 @@ body {
 
 .user-edit-info input {
     background-color: #fff;
-    width: 150px;
+    width: 130px;
     height: 25px;
     border-radius: 5px;
     border: solid 1px #C4C5C5;
+    padding-left: 8px;
 }
 
 .user-edit-info input:disabled {
