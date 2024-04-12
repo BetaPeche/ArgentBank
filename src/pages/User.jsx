@@ -11,7 +11,7 @@ const User = () => {
     const [username, setUsername] = useState(user.userName)
     const [isEdit, setIsEdit] = useState(false)
     const navigate = useNavigate()
-    const userTransaction = userData.find((u) => u.user === user.id)
+    const userTransaction = userData.find((u) => u.user === user.email)
 
     useEffect(() => {
         if (!user.isConnected) {
