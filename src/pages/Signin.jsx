@@ -30,7 +30,7 @@ const Signin = () => {
             setError("Veuillez remplir tous les champs")
         } else {
             try {
-                const response = await fetch(
+                const responseToken = await fetch(
                     "http://localhost:3001/api/v1/user/login",
                     {
                         method: "POST",
@@ -43,22 +43,22 @@ const Signin = () => {
                         }),
                     }
                 )
-                const res = await response.json()
+                const resToken = await responseToken.json()
 
-                if (res.status === 200) {
-                    dispatch(logIn(res.body.token))
-                    const response2 = await fetch(
+                if (resToken.status === 200) {
+                    dispatch(logIn(resToken.body.token))
+                    const responseUser = await fetch(
                         "http://localhost:3001/api/v1/user/profile",
                         {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
-                                Authorization: `Bearer ${res.body.token}`,
+                                Authorization: `Bearer ${resToken.body.token}`,
                             },
                         }
                     )
-                    const res2 = await response2.json()
-                    dispatch(fetchUserProfile(res2.body))
+                    const resUser = await responseUser.json()
+                    dispatch(fetchUserProfile(resUser.body))
                     const userInfo = {
                         localEmail: email,
                         localPassword: password,
@@ -70,7 +70,7 @@ const Signin = () => {
                     }
                     navigate("/profile")
                 }
-                if (res.status === 400) {
+                if (resToken.status === 400) {
                     setError("Mauvaise combinaison email/mot de passe")
                 }
             } catch (err) {
