@@ -65,11 +65,9 @@ paths:
         - User Module
       summary: User Profile API
       description: API for fetching a user profile
-      #produces:
-       # - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: User profile retrieved successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
@@ -94,7 +92,7 @@ paths:
         - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: User profile retrieved successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
@@ -109,13 +107,11 @@ paths:
         - Account Module
       summary: Accounts List
       description: API for fetching a list of accounts
-      #produces:
-       # - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: Accounts retrieved successfully
           schema:
-            $ref: '#/definitions/ApiResponse'
+            $ref: '#/definitions/AccountList'
         '400':
           description: Invalid Fields
         '500':
@@ -128,18 +124,16 @@ paths:
         - Account Module
       summary: Transactions List
       description: API for fetching a list of transactions
-      #produces:
-       # - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: Transactions retrieved successfully
           schema:
-            $ref: '#/definitions/ApiResponse'
+            $ref: '#/definitions/TransactionList'
         '400':
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /transaction:
+  /transaction/{id}:
     put:
       security:
         - Bearer: []
@@ -148,19 +142,24 @@ paths:
       summary: Edit Transaction
       description: API for updating a transaction
       parameters:
+        - in: path
+          name: id
+          type: string
+          description: Numeric ID of the transaction to edit
+          required: true
         - in: body
           name: body
-          description: Update user profile attributes
+          description: Update transaction information
           required: true
           schema:
-            $ref: '#/definitions/UserProfile'
+            $ref: '#/definitions/TransactionEdit'
       produces:
         - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: Transaction edited successfully
           schema:
-            $ref: '#/definitions/ApiResponse'
+            $ref: '#/definitions/TransactionResponse'
         '400':
           description: Invalid Fields
         '500':
@@ -172,6 +171,7 @@ securityDefinitions:
     in: header
 definitions:
   User:
+    description: User object containing user details
     properties:
       email:
         type: string
@@ -189,6 +189,7 @@ definitions:
         type: string
         description: user public name
   Login:
+    description: Login object containing login details
     properties:
       email:
         type: string
@@ -197,26 +198,122 @@ definitions:
         type: string
         description: user password
   ApiResponse:
+    description: API response object
     type: object
     properties:
       status:
         type: integer
+        description: status code
       message:
         type: string
+        description: status message
       body:
         type: object
+        description: response body
         properties:
           id:
             type: string
+            description: user ID
           email:
             type: string
+            description: user email
   LoginResponse:
+    description: Login response object containing token
     type: object
     properties:
       token:
         type: string
+        description: authentication token
   UserProfile:
+    description: User profile object containing username
     type: object
     properties:
       userName:
         type: string
+        description: user public name
+  AccountList:
+    description: List of user accounts
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          description: account ID
+        name:
+          type: string
+          description: account name
+        balance:
+          type: string
+          description: account balance
+  TransactionList:
+    description: List of user transactions
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          description: transaction ID
+        id_account:
+          type: string
+          description: account ID
+        date:
+          type: string
+          description: transaction date
+        description:
+          type: string
+          description: transaction description
+        amount:
+          type: string
+          description: transaction amount
+        balance:
+          type: string
+          description: account balance after transaction
+        type:
+          type: string
+          description: transaction type 
+        category:
+          type: string
+          description: transaction category
+  TransactionEdit:
+    description: Transaction edit object
+    type: object
+    properties:
+      category:
+        type: string
+        description: transaction category
+      note:
+        type: string
+        description: transaction note
+  TransactionResponse:
+    description: Transaction response object
+    type: object
+    properties:
+      id:
+        type: string
+        description: transaction ID
+      id_account:
+        type: string
+        description: account ID
+      date:
+        type: string
+        description: transaction date
+      description:
+        type: string
+        description: transaction description
+      amount:
+        type: string
+        description: transaction amount
+      balance:
+        type: string
+        description: account balance after transaction
+      type:
+        type: string
+        description: transaction type
+      category:
+        type: string
+        description: transaction category
+      note:
+        type: string
+        description: transaction note
