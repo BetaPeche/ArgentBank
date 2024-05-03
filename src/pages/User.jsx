@@ -27,7 +27,6 @@ const User = () => {
     }
 
     const handleSubmit = async () => {
-        dispatch(editUsername(username))
         try {
             await fetch("http://localhost:3001/api/v1/user/profile", {
                 method: "PUT",
@@ -39,6 +38,7 @@ const User = () => {
                     userName: username,
                 }),
             })
+            dispatch(editUsername(username))
         } catch (err) {
             console.error(err.message)
         }
